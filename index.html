@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiendas Doña Mati — Tu tienda de confianza</title>
+  <meta name="description" content="Tiendas Doña Mati - Los mejores productos a los mejores precios. Nueva mercadería cada semana." />
+  <meta property="og:title" content="Tiendas Doña Mati" />
+  <meta property="og:description" content="Tu tienda de confianza. Los mejores productos a los mejores precios." />
+  <link rel="stylesheet" href="src/styles/main.css" />
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <div class="brand-dot"></div>
+      <span>Tiendas Doña Mati</span>
+    </a>
+    <ul class="nav-menu" id="nav-menu">
+      <li><a href="#inicio" class="active">Inicio</a></li>
+      <li><a href="#nueva-mercaderia">Nueva Mercadería</a></li>
+      <li><a href="#catalogo">Catálogo</a></li>
+      <li><a href="#noticias">Noticias</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-search" id="btn-open-search" title="Buscar">🔍</button>
+      <button class="btn-cart" id="btn-open-cart">
+        🛒 Carrito
+        <span class="cart-badge" id="cart-badge">0</span>
+      </button>
+      <button class="nav-hamburger" id="nav-hamburger">☰</button>
+    </div>
+  </div>
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="#inicio">🏠 Inicio</a>
+    <a href="#nueva-mercaderia">✨ Nueva Mercadería</a>
+    <a href="#catalogo">📦 Catálogo</a>
+    <a href="#noticias">📰 Noticias</a>
+    <a href="#contacto">📞 Contacto</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ SEARCH ═══════════════════════ -->
+<div id="search-overlay">
+  <div class="search-box">
+    <input type="text" id="search-input" placeholder="🔍 Buscar productos..." autocomplete="off" />
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ HERO ═════════════════════════ -->
+<section id="inicio">
+  <div id="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-dots"></div>
+    <div class="hero-inner">
+      <div class="hero-tag">✨ Bienvenidos a nuestra tienda</div>
+      <h1 class="hero-title">
+        Todo lo que necesitas<br>
+        en <span>Tiendas Doña Mati</span>
+      </h1>
+      <p class="hero-subtitle">
+        Calidad, variedad y los mejores precios para tu hogar y familia.
+        Nueva mercadería cada semana.
+      </p>
+      <div class="hero-actions">
+        <a href="#catalogo" class="btn-primary">Ver Productos →</a>
+        <a href="#nueva-mercaderia" class="btn-ghost">✨ Ver Novedades</a>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="stat-total">—</span>
+          <span class="hero-stat-label">Productos</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="stat-new">—</span>
+          <span class="hero-stat-label">Novedades</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" id="stat-cats">—</span>
+          <span class="hero-stat-label">Categorías</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ NUEVA MERCADERÍA ════════════════════ -->
+<section id="nueva-mercaderia" class="section" style="background:#fff;">
+  <div class="section-inner">
+    <div class="new-banner">
+      <div class="section-label">⭐ Lo más reciente</div>
+      <div class="new-banner-title">¡Nueva <span>Mercadería</span> Llegó!</div>
+      <p class="new-banner-sub">Descubre los últimos productos que acabamos de agregar a nuestra tienda</p>
+    </div>
+    <div class="products-grid" id="new-products-grid">
+      <!-- Skeleton cards -->
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CATÁLOGO ══════════════════════════ -->
+<section id="catalogo" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">📦 Todos nuestros productos</div>
+        <h2 class="section-title">Nuestro <span>Catálogo</span></h2>
+      </div>
+    </div>
+    <!-- Category filter -->
+    <div class="category-filter" id="category-filter">
+      <button class="filter-btn active" data-cat="all">Todos</button>
+      <!-- JS inserta más categorías aquí -->
+    </div>
+    <!-- Product grid -->
+    <div class="products-grid" id="catalog-grid">
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+      <div class="skeleton-card"><div class="skeleton skeleton-img"></div><div class="skeleton skeleton-text wide"></div><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-btn"></div></div>
+    </div>
+    <div id="catalog-empty" style="display:none; text-align:center; padding:48px; color:var(--text-muted);">
+      <div style="font-size:3rem;margin-bottom:12px;">🔍</div>
+      <p>No se encontraron productos</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ NOTICIAS ══════════════════════════ -->
+<section id="noticias" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-label">📰 Mantente informado</div>
+        <h2 class="section-title">Noticias y <span>Anuncios</span></h2>
+      </div>
+    </div>
+    <div class="news-grid" id="news-grid">
+      <div class="skeleton-card" style="border-radius:20px;overflow:hidden;">
+        <div class="skeleton" style="height:180px;"></div>
+        <div style="padding:20px"><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-text wide" style="margin-top:10px;height:18px;"></div><div class="skeleton skeleton-text" style="margin-top:8px;"></div></div>
+      </div>
+      <div class="skeleton-card" style="border-radius:20px;overflow:hidden;">
+        <div class="skeleton" style="height:180px;"></div>
+        <div style="padding:20px"><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-text wide" style="margin-top:10px;height:18px;"></div><div class="skeleton skeleton-text" style="margin-top:8px;"></div></div>
+      </div>
+      <div class="skeleton-card" style="border-radius:20px;overflow:hidden;">
+        <div class="skeleton" style="height:180px;"></div>
+        <div style="padding:20px"><div class="skeleton skeleton-text narrow"></div><div class="skeleton skeleton-text wide" style="margin-top:10px;height:18px;"></div><div class="skeleton skeleton-text" style="margin-top:8px;"></div></div>
+      </div>
+    </div>
+    <div id="news-empty" style="display:none;text-align:center;padding:40px;color:var(--text-muted);">
+      <p>Próximamente tendremos noticias para ti 🎉</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ CONTACTO ════════════════════════ -->
+<section id="contacto" class="section" style="background:var(--accent);color:white;">
+  <div class="section-inner" style="text-align:center;">
+    <div class="section-label" style="color:var(--primary);">💬 Estamos aquí para ayudarte</div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:12px;">¿Tienes alguna pregunta?</h2>
+    <p style="opacity:.75;margin-bottom:28px;max-width:400px;margin-inline:auto;">
+      Escríbenos por WhatsApp y te respondemos de inmediato.
+    </p>
+    <a href="https://wa.me/50412345678" target="_blank" class="btn-primary" style="display:inline-flex;gap:10px;">
+      💬 Escribir por WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-name">Tiendas Doña Mati</div>
+      <p class="footer-desc">Tu tienda de confianza con los mejores productos, calidad garantizada y atención personalizada para toda la familia.</p>
+      <div class="footer-social">
+        <a href="#" title="Facebook">📘</a>
+        <a href="#" title="Instagram">📸</a>
+        <a href="#" title="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Navegación</div>
+      <ul>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nueva-mercaderia">Nueva Mercadería</a></li>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#noticias">Noticias</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Información</div>
+      <ul>
+        <li><a href="#">Sobre Nosotros</a></li>
+        <li><a href="#">Política de Devoluciones</a></li>
+        <li><a href="#">Términos de Uso</a></li>
+        <li><a href="#">Privacidad</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contacto</div>
+      <ul>
+        <li><a href="#">📍 Honduras</a></li>
+        <li><a href="#">📞 +504 1234-5678</a></li>
+        <li><a href="#">💬 WhatsApp</a></li>
+        <li><a href="admin.html">🔐 Admin</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Tiendas Doña Mati. Todos los derechos reservados.</span>
+    <span>Hecho con ❤️ en Honduras</span>
+  </div>
+</footer>
+
+<!-- ════════════════════ CART DRAWER ═════════════════════ -->
+<div id="cart-overlay" id="cart-overlay"></div>
+<aside id="cart-drawer">
+  <div class="cart-header">
+    <div class="cart-header-title">🛒 Mi Carrito</div>
+    <button class="btn-close-cart" id="btn-close-cart">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <p><strong>Tu carrito está vacío</strong></p>
+      <p style="font-size:.85rem;">Agrega productos para comenzar</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-total-line">
+      <span>Total a pagar:</span>
+      <strong id="cart-total">L. 0.00</strong>
+    </div>
+    <button class="btn-checkout-wa" id="btn-checkout-wa">
+      💬 Pedir por WhatsApp
+    </button>
+  </div>
+</aside>
+
+<!-- ═══════════════════ WHATSAPP FLOAT ═══════════════════ -->
+<a id="wa-float" href="https://wa.me/50412345678" target="_blank" title="Chatea con nosotros">💬</a>
+
+<!-- ══════════════════════ TOASTS ════════════════════════ -->
+<div id="toast-container"></div>
+
+<!-- ════════════════════ SCRIPTS ═════════════════════════ -->
+<script src="src/lib/supabase.js"></script>
+<script src="src/pages/home.js"></script>
+</body>
+</html>
